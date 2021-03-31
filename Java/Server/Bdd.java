@@ -18,18 +18,18 @@ public class Bdd {
 
         File temp;
 
-        Class driverClass = Class.forName("org.apache.derby.jdbc.EmbeddedDriver") ;
+        Class driverClass = Class.forName("org.apache.derby.jdbc.ClientDriver") ;
 		DriverManager.registerDriver((Driver)driverClass.newInstance());
         
         try {
-            temp = new File("Java/Server/BddEce/db.lck");
+            temp = new File("Java/libraries/Derby_10_14_2/bin/BddEce/db.lck");
 
             if(temp.exists()){
-                conn = DriverManager.getConnection("jdbc:derby:Java/Server/bddEce;user=admin;password=admin") ;
+                conn = DriverManager.getConnection("jdbc:derby://localhost:1527/bddEce;user=admin;password=admin") ;
                 stmt = conn.createStatement();
 
             }else{
-                conn = DriverManager.getConnection("jdbc:derby:Java/Server/bddEce;create=true") ;
+                conn = DriverManager.getConnection("jdbc:derby://localhost:1527/bddEce;create=true");
                 turnOnBuiltInUsers(conn);
                 stmt = conn.createStatement();
                 createBdd();
