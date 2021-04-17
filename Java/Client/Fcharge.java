@@ -19,15 +19,10 @@ public class Fcharge extends JFrame {
 
     public Fcharge(){
 
-        cours.add("physique");
-        cla.add("SE4 APP1");
-        cla.add("SE5 APP1");
-
         fenetre(550,350);
         orgaFen(); 
         this.setVisible(true);
 
-        avancement();
 
         Fintbas Fintbas = new Fintbas();
         Fintbas.setCours(cours);
@@ -58,11 +53,8 @@ public class Fcharge extends JFrame {
         ltext = new JLabel("");  
         panel2.add(ltext);
 
-        progress = new JProgressBar(0,1000);
-        progress.setBounds(1,1,165,30);
-        progress.setValue(0);  
-        progress.setStringPainted(true);
-        panel2.add(progress);
+        ltext = new JLabel("");  
+        panel2.add(ltext);
 
         ltext = new JLabel("");  
         panel2.add(ltext);
@@ -73,8 +65,6 @@ public class Fcharge extends JFrame {
         ltext = new JLabel("Chargement ...",JLabel.CENTER);
         panel2.add(ltext);
 
-        ltext = new JLabel("");  
-        panel2.add(ltext);
 
         this.add(panel2);
     }
@@ -83,14 +73,6 @@ public class Fcharge extends JFrame {
         imagECE = new ImageIcon (this.getClass().getResource("/ECE.png"));
 
         return (new JLabel(imagECE));
-    }
-
-    public void avancement()
-    {
-        for ( i=0; i<1000000; i++ ){
-            progress.setValue(i);
-        }
-        
     }
 
     public ArrayList<String> getCours() {

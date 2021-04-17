@@ -1,5 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -21,7 +24,13 @@ public class Fintbas extends JFrame {
         fenetre(); 
     }
 
-    public void gene(){
+    public void gene() throws UnknownHostException, ClassNotFoundException, IOException{
+
+
+        
+        
+
+
         paneltitre();
         panelespace();
         panelcentre1();
@@ -52,7 +61,25 @@ public class Fintbas extends JFrame {
             }  
         });
     }
+  
+
+private void useReceiveData() throws UnknownHostException, ClassNotFoundException, IOException{
+
+    ReceiveData receive = new ReceiveData();
     
+    int[] myTab = receive.start();
+
+    for(int i = 0; i< myTab.length; i++){
+
+        this.cours.add(myTab[i]);
+        
+    }
+
+
+}
+
+
+
     private void fenetre(){
         this.setTitle("Student Caller");    
         this.setExtendedState(Frame.MAXIMIZED_BOTH);                                
