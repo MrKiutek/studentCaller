@@ -44,7 +44,6 @@ public class mySocket extends Thread {
 			entree.close();
 			socket.close();
             
-            
 		}
 		catch(IOException e) {}
 	}
