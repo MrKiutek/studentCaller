@@ -1,5 +1,7 @@
 import com.entities.*;
 import com.json_computer.*;
+import com.socket_gestion.*;
+
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -34,21 +36,10 @@ public class Main {
         cours = faiseur.read();
         System.out.println("Json Read");
 
+		Read_rfid_thread thread_read = new Read_rfid_thread();
+		Send_data_thread thread_send = new Send_data_thread();
 
-		int portEcoute = 3333;
-		ServerSocket standardiste;
-		Socket socket;
 
-		try {
-			standardiste = new ServerSocket(portEcoute);
-			while(true) {
-				socket = standardiste.accept();
-	 			new mySocket(socket);
-			}
-		}
-		catch(IOException exc) {
-	 		System.out.println("probleme de connexion");
-		}
 	}
 
 	}	
