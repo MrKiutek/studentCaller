@@ -1,5 +1,9 @@
+package Vue;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -71,9 +75,11 @@ public class Flogin extends JFrame {
         this.bco.addActionListener(new ActionListener() {  
             public void actionPerformed(ActionEvent e) { 
                 if (connect(tco.getText(), tmp.getText()) == true){
-                    Fintbas Fintbas = new Fintbas();
+                    Fintbas Fintbas;
+                    Fintbas = new Fintbas();
                     Fintbas.gene();
-                    Fintbas.setVisible(true);
+                     Fintbas.setVisible(true);
+                    
                 }
                 else{
                     Ferreur fenetreErreur = new Ferreur();
