@@ -6,9 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.ArrayList;
 
-import com.entities.Cours;
+import com.entities.All_Cours;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -23,10 +22,10 @@ public class Json_doer {
         this.gson = builder.create();
     }
 
-    public void make(ArrayList<Cours> cours){
+    public void make(All_Cours all_cours){
         try {
             Writer writer = new FileWriter("cours.json");
-            gson.toJson(cours, writer);
+            gson.toJson(all_cours, writer);
             writer.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -34,8 +33,8 @@ public class Json_doer {
         };
     }
 
-    public ArrayList<Cours> read(){
-        Type type = new TypeToken<ArrayList<Cours>>(){}.getType();
+    public All_Cours read(){
+        Type type = new TypeToken<All_Cours>(){}.getType();
         try {
             Reader reader;
             reader = new FileReader("cours.json");

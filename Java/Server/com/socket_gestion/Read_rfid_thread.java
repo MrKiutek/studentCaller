@@ -9,15 +9,20 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Read_rfid_thread extends Thread {
+import com.entities.All_Cours;
+
+public class Read_rfid_thread implements Runnable {
 	Socket socket;
 	BufferedReader entree;
-	PrintWriter sortie;
 
-	public Read_rfid_thread() {
-		this.start();
+	All_Cours classeCours;
+
+	public Read_rfid_thread(All_Cours d, Class c) {
+		this.classeCours = d;
+		this.run();
 	}
 
+	@Override
 	public void run() {
 		int portEcoute = 3333;
 		ServerSocket standardiste;
@@ -29,13 +34,11 @@ public class Read_rfid_thread extends Thread {
 			while(true) {
 				msocket = standardiste.accept();
 				entree = new BufferedReader(new InputStreamReader(msocket.getInputStream()));
-				sortie = new PrintWriter(new BufferedWriter(new OutputStreamWriter(msocket.getOutputStream())), true);				
 				texte = entree.readLine();
 
 				//CALL FUNCTION WHICH MODIFY PRESENT absent
 
-				System.out.println(texte);
-				sortie.close();
+				classeCours.set_present(texte.substring(0, 7),texte.substring(8));
 				entree.close();
 				socket.close();
 			}
@@ -43,5 +46,6 @@ public class Read_rfid_thread extends Thread {
 		catch(IOException exc) {
 	 		System.out.println("probleme de connexion");
 		}
+
 	}
 }

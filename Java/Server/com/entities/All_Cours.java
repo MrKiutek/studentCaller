@@ -11,11 +11,10 @@ import org.apache.commons.lang.time.DateUtils;
 public class All_Cours {
     private ArrayList<Cours> list_cours;
     private DateFormat format;
-    
 
     public All_Cours(){
         this.list_cours = new ArrayList<Cours>();
-        this.format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");    
+        this.format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     }
 
     public void add(Cours cours){
@@ -47,7 +46,6 @@ public class All_Cours {
         } else {
             System.out.println("Cours not found");
         }
-        
     }
 
     public ArrayList<Cours> getListCours(){

@@ -16,29 +16,30 @@ public class Main {
         ArrayList<Cours> cours = new ArrayList<Cours>();
         All_Cours all_cours = new All_Cours();
 
-        all_cours.add(new Cours(classe, "P445", "Projet Technologique", new Date(121, 3, 18, 23, 0)));
+        all_cours.add(new Cours(classe, "P445", "Projet Technologique", new Date(121, 3, 18, 23, 20)));
         System.out.println("all_cours created");
 
 
-        all_cours.set_present("86BFD1F4", "P445");
+        Runnable myNewThread1 = new Read_rfid_thread(all_cours, all_cours.getClass());
+        new Thread(myNewThread1).start();
         System.out.println("set present");
 
+        Runnable myNewThread2 = new Credit_remover(all_cours, all_cours.getClass());
+        new Thread(myNewThread2).start();
+        System.out.println("credit remover");
 
+        
 
 
         Json_doer faiseur = new Json_doer();
-        faiseur.make(cours);
-        System.out.println("Json Written");
+        faiseur.make(all_cours);        
+        // cours = faiseur.read();
+        // System.out.println("Json Read");
 
-        cours.get(0).setPresent("86BFD1F4");
-        faiseur.make(cours);
-        System.out.println("Ethane set present");
-
-        cours = faiseur.read();
-        System.out.println("Json Read");
-
-        //Read_rfid_thread thread_read = new Read_rfid_thread();
-        //Send_data_thread thread_send = new Send_data_thread();
+        while(true){
+            System.out.println(listEleve.get(0).getPrenom() + listEleve.get(0).getCreditAbsence() );
+            System.out.println(listEleve.get(1).getPrenom() + listEleve.get(1).getCreditAbsence() );
+        }
 
     }
 

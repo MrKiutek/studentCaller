@@ -2,6 +2,7 @@ package com.entities;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -12,6 +13,7 @@ public class Cours {
     private transient Classe classe;
     private HashMap<String,Eleve> present;
     private HashMap<String,Eleve> absent;
+    private boolean call_clotured;
 
     public Cours(Classe classe, String salle, String matiere, Date date_heure) {
         this.setClasse(classe);
@@ -19,6 +21,7 @@ public class Cours {
         this.setMatiere(matiere);
         this.setFormat(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"));
         this.setDate_heure(date_heure);
+        this.setCall_clotured(false);
 
         this.absent = new HashMap<String,Eleve>();
         this.present = new HashMap<String,Eleve>();
@@ -27,12 +30,27 @@ public class Cours {
         }
     }
 
+    
     public void setPresent(String rfid){
         this.present.put(rfid, this.absent.get(rfid));
         this.absent.remove(rfid);
     }
 
     /*------------------Getter-Setter------------------- */
+    public ArrayList<Eleve> getAbsent(){
+        ArrayList<Eleve> absents = new ArrayList<Eleve>();
+        absents.addAll(this.absent.values());
+        return absents;
+    }
+
+    public boolean isCall_clotured() {
+        return call_clotured;
+    }
+
+    public void setCall_clotured(boolean call_clotured) {
+        this.call_clotured = call_clotured;
+    }
+
     public DateFormat getFormat() {
         return format;
     }

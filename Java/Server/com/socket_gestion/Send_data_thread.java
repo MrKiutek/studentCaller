@@ -10,12 +10,21 @@ import java.net.ServerSocket;
 
 import java.net.Socket;
 
-public class Send_data_thread extends Thread {
-    Socket socket;
-	BufferedReader entree;
-	PrintWriter sortie;
+import com.entities.All_Cours;
+import com.entities.Cours;
 
-	public Send_data_thread() {
+import java.util.ArrayList;
+
+import java.io.ObjectOutputStream;
+
+public class Send_data_thread implements Runnable {
+	ObjectOutputStream  sortie;
+
+	All_Cours classeCours;
+
+	public Send_data_thread(All_Cours d, Class c) {
+
+		this.classeCours = d;
 		this.start();
 	}
 
@@ -23,22 +32,23 @@ public class Send_data_thread extends Thread {
 		int portEcoute = 3334;
 		ServerSocket standardiste;
 		Socket msocket;
-        String texte;
 		
 		try {
 			standardiste = new ServerSocket(portEcoute);
 			while(true) {
 				msocket = standardiste.accept();
-				entree = new BufferedReader(new InputStreamReader(msocket.getInputStream()));
-				sortie = new PrintWriter(new BufferedWriter(new OutputStreamWriter(msocket.getOutputStream())), true);				
-				texte = entree.readLine();
+				
+				sortie = new ObjectOutputStream(msocket.getOutputStream());
+				
+				ArrayList<Cours> myList = classeCours.getListCours();
+			
 
 			//CALL FUNCTION SEND DATA TO CALLER
 
-				System.out.println(texte);
+				sortie.writeObject(myList);
+
 				sortie.close();
-				entree.close();
-				socket.close();
+				msocket.close();
 			}
 		}
 		catch(IOException exc) {
