@@ -19,7 +19,7 @@ public class Fintbas extends JFrame {
     JLabel lcla, lcours, ldate, lheure,ltexte;
     JComboBox cbcla, cbcours, cbdate, cbheure;
     JButton bact, bgo,bdeco;
-    Cours[] listCours;
+    ArrayList<Cours> listCours;
     JTable AffTableau1,AffTableau2;
 
     private ImageIcon imagECE, imageECE2;
@@ -271,7 +271,7 @@ public class Fintbas extends JFrame {
         this.heure = heure;
     } 
 
-    public void setListCours(Cours[] tab){
+    public void setListCours(ArrayList<Cours> tab){
         this.listCours = tab;
         
     }
@@ -292,9 +292,9 @@ public class Fintbas extends JFrame {
         ((ModeleStatique)AffTableau1.getModel()).clearTable();
         ((ModeleStatique)AffTableau2.getModel()).clearTable();
 
-        for(int i = 0; i<listCours.length; i++){
+        for(int i = 0; i<listCours.size(); i++){
 
-            if(cours.equals(listCours[i].getMatiere()) && classe.equals(listCours[i].getSalle()) && date.equals(dateForm.format(listCours[i].getDate_heure())) && heure.equals(timeForm.format(listCours[i].getDate_heure()))){
+            if(cours.equals(listCours.get(i).getMatiere()) && classe.equals(listCours.get(i).getSalle()) && date.equals(dateForm.format(listCours.get(i).getDate_heure())) && heure.equals(timeForm.format(listCours.get(i).getDate_heure()))){
 
                 index = i;
                 break;
@@ -306,20 +306,20 @@ public class Fintbas extends JFrame {
         }
 
         
-        for(String key : listCours[index].getPresent().keySet() ){
+        for(String key : listCours.get(index).getPresent().keySet() ){
 
             
 
-            ((ModeleStatique)AffTableau1.getModel()).addRow(listCours[index].getPresent().get(key).getNom(), listCours[index].getPresent().get(key).getPrenom(), String.valueOf(listCours[index].getPresent().get(key).getCreditAbsence()));
+            ((ModeleStatique)AffTableau1.getModel()).addRow(listCours.get(index).getPresent().get(key).getNom(), listCours.get(index).getPresent().get(key).getPrenom(), String.valueOf(listCours.get(index).getPresent().get(key).getCreditAbsence()));
 
         }
 
         
-        for(String key : listCours[index].getAbsent().keySet() ){
+        for(String key : listCours.get(index).getAbsent().keySet() ){
 
             
 
-            ((ModeleStatique)AffTableau2.getModel()).addRow(listCours[index].getAbsent().get(key).getNom(), listCours[index].getAbsent().get(key).getPrenom(), String.valueOf(listCours[index].getAbsent().get(key).getCreditAbsence()));
+            ((ModeleStatique)AffTableau2.getModel()).addRow(listCours.get(index).getAbsent().get(key).getNom(), listCours.get(index).getAbsent().get(key).getPrenom(), String.valueOf(listCours.get(index).getAbsent().get(key).getCreditAbsence()));
 
         }
 

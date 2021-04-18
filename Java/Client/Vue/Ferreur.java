@@ -13,7 +13,7 @@ public class Ferreur extends JFrame{
     public Ferreur(){
         fenetre(450,150);
         this.setLayout(new GridLayout(3,1));
-        panelDébut();
+        panelDebut();
         panelFin();
         this.setVisible(true);
     }
@@ -25,7 +25,7 @@ public class Ferreur extends JFrame{
         this.setLocationRelativeTo(null);
     }
 
-    private void panelDébut() {
+    private void panelDebut() {
         JPanel panel1 = new JPanel(new GridLayout(1,1));
         JPanel panel2 = new JPanel(new GridLayout(1,1));
         ltext1 = new JLabel("Erreur !!",JLabel.CENTER);  

@@ -1,5 +1,3 @@
-package Controler;
-
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 

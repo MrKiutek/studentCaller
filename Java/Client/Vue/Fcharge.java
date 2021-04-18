@@ -62,17 +62,17 @@ public class Fcharge extends JFrame {
         try {
             ReceiveData rcv = new ReceiveData();
 
-            Cours[] tab = rcv.start();
+            ArrayList<Cours> tab = rcv.start();
             DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
             DateFormat time = new SimpleDateFormat("hh:mm:ss a");
 
             Fintbas.setListCours(tab);
 
-            for(int i = 0; i<tab.length; i++){
-                this.cours.add(tab[i].getMatiere());
-                this.cla.add(tab[i].getSalle());
-                this.date.add(date.format(tab[i].getDate_heure()));
-                this.heure.add(time.format(tab[i].getDate_heure()));
+            for(int i = 0; i<tab.size(); i++){
+                this.cours.add(tab.get(i).getMatiere());
+                this.cla.add(tab.get(i).getSalle());
+                this.date.add(date.format(tab.get(i).getDate_heure()));
+                this.heure.add(time.format(tab.get(i).getDate_heure()));
                 
             }
 
