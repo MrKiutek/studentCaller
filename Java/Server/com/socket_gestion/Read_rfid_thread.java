@@ -14,6 +14,7 @@ import com.entities.All_Cours;
 public class Read_rfid_thread implements Runnable {
 	Socket socket;
 	BufferedReader entree;
+	PrintWriter sortie;
 
 	All_Cours classeCours;
 
@@ -35,9 +36,9 @@ public class Read_rfid_thread implements Runnable {
 				entree = new BufferedReader(new InputStreamReader(msocket.getInputStream()));
 				texte = entree.readLine();
 
-				classeCours.set_present(texte.substring(0, 7),texte.substring(8));
+				classeCours.set_present(texte.substring(0, 8),texte.substring(8));
 				entree.close();
-				socket.close();
+				msocket.close();
 			}
 		}
 		catch(IOException exc) {

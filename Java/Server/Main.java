@@ -8,7 +8,7 @@ import java.util.Date;
 public class Main {
     public static void main(String[] args){
 
-        /*
+        
         String maClasse = "ING 4 APP SE";
 
         ArrayList<Eleve> listEleve = new ArrayList<Eleve>();
@@ -22,17 +22,19 @@ public class Main {
         ArrayList<Cours> cours = new ArrayList<Cours>();
         All_Cours all_cours = new All_Cours();
 
-        all_cours.add(new Cours(classe, "P445", "Projet Technologique", new Date(121, 3, 19, 9, 30)));
+        all_cours.add(new Cours(classe, "P445", "Projet Technologique", new Date(121, 3, 19, 11, 30)));
         System.out.println("all_cours created");
-
+        
+        /*
         Json_doer doer = new Json_doer();
-        doer.make(all_cours); */
+        doer.make(all_cours); 
 
+       
         Json_doer doer = new Json_doer();
         All_Cours all_cours = doer.read();
-        System.out.println("This exists for debugging 1");
+        System.out.println("This exists for debugging 1");*/
 
-        /*
+        
         new Thread(new Credit_remover(all_cours, all_cours.getClass())).start();
         System.out.println("This exists for debugging 2");
 
@@ -44,7 +46,7 @@ public class Main {
 
 
         while(true){
-        }*/
+        }
 
     }
 

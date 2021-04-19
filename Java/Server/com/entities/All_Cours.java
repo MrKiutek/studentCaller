@@ -32,7 +32,7 @@ public class All_Cours implements Serializable{
             cours_begin = this.list_cours.get(i).getDate_heure();
             cours_end = DateUtils.addMinutes(cours_begin, 90);
 
-            if(date.after(cours_begin) && date.before(cours_end) && salle==this.list_cours.get(i).getSalle()){
+            if(date.after(cours_begin) && date.before(cours_end) && salle.equals(list_cours.get(i).getSalle())){
                 return this.list_cours.get(i);
             }
         }
@@ -44,10 +44,10 @@ public class All_Cours implements Serializable{
 
         Date now = new Date(System.currentTimeMillis());
         Cours actual = this.find(now, salle);
-        if (actual != null){
+        if (actual != null && !actual.getPresent().containsKey(rfid)){
             actual.setPresent(rfid);
         } else {
-            System.out.println("Cours not found");
+            System.out.println("Cours not found or already present");
         }
     }
 
