@@ -10,7 +10,7 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
-import Modele.Cours;
+import com.entities.Cours;
 
 import java.util.ArrayList;
 
@@ -305,6 +305,7 @@ public class Fintbas extends JFrame {
             }
         }
 
+        
         
         for(String key : listCours.get(index).getPresent().keySet() ){
 

@@ -1,16 +1,21 @@
 package Vue;
 
-import javax.swing.*;
-
-import Controler.ReceiveData;
-import Modele.Cours;
-
-import java.awt.*;
+import java.awt.GridLayout;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+
+import com.entities.Cours;
+
+import Controler.ReceiveData;
 
 public class Fcharge extends JFrame {
    

@@ -9,13 +9,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-import Modele.Cours;
-import Modele.Eleve;
+import com.entities.Cours;
 
 public class ReceiveData {
 
-    static final String serverName = "localhost";
-    static final int serverPort = 9999;
+    static final String serverName = "192.168.3.11";
+    static final int serverPort = 3334;
 
     public ReceiveData() throws UnknownHostException, IOException, ClassNotFoundException {
 
@@ -23,7 +22,7 @@ public class ReceiveData {
     }
 
     public ArrayList<Cours> start() throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException{
-        /*
+        
         Socket socket = new Socket(serverName, serverPort);
         System.out.println("Socket client: " + socket);
  
@@ -37,7 +36,7 @@ public class ReceiveData {
         in.close();
         socket.close();
         
-        */
+        /*
         Cours a,b,c;
         a = new Cours("P111", "physique", new Date(2021, 8, 11, 11, 11));
         b = new Cours("P113", "eletronique", new Date(2021, 8, 12, 12, 12));
@@ -50,11 +49,11 @@ public class ReceiveData {
         ArrayList<Cours> tab = new ArrayList<Cours>();
         tab.add(a);
         tab.add(b);
-        tab.add(c);
+        tab.add(c);*/
 
         
 
-        return tab;
+        return tableauRecu;
 
     }
     
