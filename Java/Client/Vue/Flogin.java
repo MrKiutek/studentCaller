@@ -24,9 +24,9 @@ public class Flogin extends JFrame {
         paneltitre();
         panelmilieu();
         panelfin();
-        this.setVisible(true);      
-	}
-    
+        this.setVisible(true);
+    }
+
     private void fenetre (int a, int b){
         this.setTitle("Student Caller");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
@@ -61,6 +61,32 @@ public class Flogin extends JFrame {
         panel2.add(tmp);
         
         this.add(panel2);
+
+        this.tmp.addActionListener(new ActionListener(){ 
+            public void actionPerformed(ActionEvent e){ 
+                if (connect(tco.getText(), tmp.getText()) == true){
+                    Fintbas Fintbas = new Fintbas();
+                    Fintbas.gene();
+                    Fintbas.setVisible(true);
+                }
+                else{
+                    Ferreur fenetreErreur = new Ferreur();
+                }
+                dispose();
+            }});
+
+            this.tco.addActionListener(new ActionListener(){ 
+                public void actionPerformed(ActionEvent e){ 
+                    if (connect(tco.getText(), tmp.getText()) == true){
+                        Fintbas Fintbas = new Fintbas();
+                        Fintbas.gene();
+                        Fintbas.setVisible(true);
+                    }
+                    else{
+                        Ferreur fenetreErreur = new Ferreur();
+                    }
+                    dispose();
+                }});
     }
 
     private void panelfin (){
@@ -100,4 +126,5 @@ public class Flogin extends JFrame {
             return false;
         }
     }
+
 }
