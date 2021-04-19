@@ -14,6 +14,7 @@ import com.entities.All_Cours;
 public class Read_rfid_thread implements Runnable {
 	Socket socket;
 	BufferedReader entree;
+	PrintWriter sortie;
 
 	All_Cours classeCours;
 
@@ -36,10 +37,10 @@ public class Read_rfid_thread implements Runnable {
 				texte = entree.readLine();
 
 				//CALL FUNCTION WHICH MODIFY PRESENT absent
-
+				//System.out.println("UID : " + texte.substring(0, 7) + " Salle : " + texte.substring(8));
 				classeCours.set_present(texte.substring(0, 7),texte.substring(8));
 				entree.close();
-				socket.close();
+				msocket.close();
 			}
 		}
 		catch(IOException exc) {
