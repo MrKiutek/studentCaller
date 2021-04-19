@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.swing.*;
 import java.awt.*;
+import Vue.Ferreur;
 
 public class Flogin extends JFrame {
 
@@ -75,10 +76,12 @@ public class Flogin extends JFrame {
         this.bco.addActionListener(new ActionListener() {  
             public void actionPerformed(ActionEvent e) { 
                 if (connect(tco.getText(), tmp.getText()) == true){
-                    Fintbas Fintbas;
-                    Fintbas = new Fintbas();
-                    Fintbas.gene();
-                     Fintbas.setVisible(true);
+                    try {
+                        Fcharge fcharge= new Fcharge();
+                    } catch (ClassNotFoundException | IOException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
                     
                 }
                 else{

@@ -22,7 +22,7 @@ public class Main {
         ArrayList<Cours> cours = new ArrayList<Cours>();
         All_Cours all_cours = new All_Cours();
 
-        all_cours.add(new Cours(classe, "P445", "Projet Technologique", new Date(121, 3, 19, 11, 30)));
+        all_cours.add(new Cours(classe, "P445", "Projet Technologique", new Date(121, 3, 19, 13, 00)));
         System.out.println("all_cours created");
         
         /*

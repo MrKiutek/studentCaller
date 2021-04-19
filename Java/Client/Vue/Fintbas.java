@@ -3,6 +3,7 @@ package Vue;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -11,6 +12,8 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 import com.entities.Cours;
+
+import Controler.ReceiveData;
 
 import java.util.ArrayList;
 
@@ -55,7 +58,12 @@ public class Fintbas extends JFrame {
                 ldate.setText(date);
                 String heure = "" + cbheure.getItemAt(cbheure.getSelectedIndex());  
                 lheure.setText(heure);     
-                startSearch();
+                try {
+                    startSearch();
+                } catch (ClassNotFoundException | IOException | InterruptedException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }  
         });
 
@@ -276,7 +284,7 @@ public class Fintbas extends JFrame {
         
     }
     
-    private int startSearch(){
+    private int startSearch() throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException{
 
         String cours = "" + cbcours.getItemAt(cbcours.getSelectedIndex());  
         String classe = "" + cbcla.getItemAt(cbcla.getSelectedIndex());  
@@ -288,13 +296,16 @@ public class Fintbas extends JFrame {
 
         int index= 0;
 
+
+        ArrayList<Cours> rd = new ReceiveData().start();
+
         
         ((ModeleStatique)AffTableau1.getModel()).clearTable();
         ((ModeleStatique)AffTableau2.getModel()).clearTable();
 
-        for(int i = 0; i<listCours.size(); i++){
+        for(int i = 0; i<rd.size(); i++){
 
-            if(cours.equals(listCours.get(i).getMatiere()) && classe.equals(listCours.get(i).getSalle()) && date.equals(dateForm.format(listCours.get(i).getDate_heure())) && heure.equals(timeForm.format(listCours.get(i).getDate_heure()))){
+            if(cours.equals(rd.get(i).getMatiere()) && classe.equals(rd.get(i).getSalle()) && date.equals(dateForm.format(rd.get(i).getDate_heure())) && heure.equals(timeForm.format(rd.get(i).getDate_heure()))){
 
                 index = i;
                 break;
@@ -307,20 +318,20 @@ public class Fintbas extends JFrame {
 
         
         
-        for(String key : listCours.get(index).getPresent().keySet() ){
+        for(String key : rd.get(index).getPresent().keySet() ){
 
             
 
-            ((ModeleStatique)AffTableau1.getModel()).addRow(listCours.get(index).getPresent().get(key).getNom(), listCours.get(index).getPresent().get(key).getPrenom(), String.valueOf(listCours.get(index).getPresent().get(key).getCreditAbsence()));
+            ((ModeleStatique)AffTableau1.getModel()).addRow(rd.get(index).getPresent().get(key).getNom(), rd.get(index).getPresent().get(key).getPrenom(), String.valueOf(rd.get(index).getPresent().get(key).getCreditAbsence()));
 
         }
 
         
-        for(String key : listCours.get(index).getAbsent().keySet() ){
+        for(String key : rd.get(index).getAbsent().keySet() ){
 
             
 
-            ((ModeleStatique)AffTableau2.getModel()).addRow(listCours.get(index).getAbsent().get(key).getNom(), listCours.get(index).getAbsent().get(key).getPrenom(), String.valueOf(listCours.get(index).getAbsent().get(key).getCreditAbsence()));
+            ((ModeleStatique)AffTableau2.getModel()).addRow(rd.get(index).getAbsent().get(key).getNom(), rd.get(index).getAbsent().get(key).getPrenom(), String.valueOf(rd.get(index).getAbsent().get(key).getCreditAbsence()));
 
         }
 
