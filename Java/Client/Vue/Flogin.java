@@ -65,9 +65,12 @@ public class Flogin extends JFrame {
         this.tmp.addActionListener(new ActionListener(){ 
             public void actionPerformed(ActionEvent e){ 
                 if (connect(tco.getText(), tmp.getText()) == true){
-                    Fintbas Fintbas = new Fintbas();
-                    Fintbas.gene();
-                    Fintbas.setVisible(true);
+                    try {
+                        Fcharge fc = new Fcharge();
+                    } catch (ClassNotFoundException | IOException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
                 }
                 else{
                     Ferreur fenetreErreur = new Ferreur();
@@ -78,9 +81,12 @@ public class Flogin extends JFrame {
             this.tco.addActionListener(new ActionListener(){ 
                 public void actionPerformed(ActionEvent e){ 
                     if (connect(tco.getText(), tmp.getText()) == true){
-                        Fintbas Fintbas = new Fintbas();
-                        Fintbas.gene();
-                        Fintbas.setVisible(true);
+                        try {
+                            Fcharge fc = new Fcharge();
+                        } catch (ClassNotFoundException | IOException e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
                     }
                     else{
                         Ferreur fenetreErreur = new Ferreur();
