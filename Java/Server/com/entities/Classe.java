@@ -1,10 +1,11 @@
 package com.entities;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Classe {
+public class Classe implements Serializable{
     private String nom;
     private ArrayList<Eleve> listEleve;
 

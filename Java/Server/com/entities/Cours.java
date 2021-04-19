@@ -1,12 +1,13 @@
 package com.entities;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Cours {
+public class Cours implements Serializable {
     private String salle, matiere;
     private transient DateFormat format;
     private Date date_heure;
@@ -14,6 +15,7 @@ public class Cours {
     private HashMap<String,Eleve> present;
     private HashMap<String,Eleve> absent;
     private boolean call_clotured;
+    private static final long serialVersionUID = 1;
 
     public Cours(Classe classe, String salle, String matiere, Date date_heure) {
         this.setClasse(classe);
@@ -36,11 +38,14 @@ public class Cours {
         this.absent.remove(rfid);
     }
 
+
     /*------------------Getter-Setter------------------- */
-    public ArrayList<Eleve> getAbsent(){
-        ArrayList<Eleve> absents = new ArrayList<Eleve>();
-        absents.addAll(this.absent.values());
-        return absents;
+    public HashMap<String,Eleve> getAbsent(){
+        return this.absent;
+    }
+
+    public HashMap<String,Eleve> getPresent(){
+        return this.present;
     }
 
     public boolean isCall_clotured() {

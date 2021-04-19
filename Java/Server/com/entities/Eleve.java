@@ -1,6 +1,8 @@
 package com.entities;
 
-public class Eleve {
+import java.io.Serializable;
+
+public class Eleve implements Serializable{
     String nom, prenom, rfid, classe;
     int creditAbsence;
 
