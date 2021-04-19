@@ -12,7 +12,9 @@
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 
-#define BUZZER 4   
+#define BUZZER 4
+
+#define SALLE_ECE "P445"
 
 SoftwareSerial mySerial(2,3);
 
@@ -79,6 +81,7 @@ void rfidDetect(){
     return;
 
   tone(BUZZER,440,100);
+  
   String myString;
   // Enregistrer l'ID du badge (4 octets) 
   for (byte i = 0; i < 4; i++) 
@@ -124,6 +127,7 @@ void oledRFIDdetected(byte toDisp[]){
 
     display.print(" ");
   }
+  
   display.display();
   delay(5000);
 
@@ -144,6 +148,7 @@ void SendToEsp(byte toSend[]){
   char str[32] = "";
   array_to_string(toSend,4,str);
   mySerial.print(str);
+  mySerial.print(SALLE_ECE);
 
   
 
