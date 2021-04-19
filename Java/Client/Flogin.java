@@ -69,6 +69,19 @@ public class Flogin extends JFrame {
                 }
                 dispose();
             }});
+
+            this.tco.addActionListener(new ActionListener(){ 
+                public void actionPerformed(ActionEvent e){ 
+                    if (connect(tco.getText(), tmp.getText()) == true){
+                        Fintbas Fintbas = new Fintbas();
+                        Fintbas.gene();
+                        Fintbas.setVisible(true);
+                    }
+                    else{
+                        Ferreur fenetreErreur = new Ferreur();
+                    }
+                    dispose();
+                }});
     }
 
     private void panelfin (){
