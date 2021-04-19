@@ -1,5 +1,6 @@
 package com.entities;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,7 +9,9 @@ import java.util.Date;
 import org.apache.commons.lang.time.DateUtils;
 
 
-public class All_Cours {
+
+
+public class All_Cours implements Serializable{
     private ArrayList<Cours> list_cours;
     private DateFormat format;
 

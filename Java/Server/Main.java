@@ -17,28 +17,22 @@ public class Main {
         All_Cours all_cours = new All_Cours();
 
         all_cours.add(new Cours(classe, "P445", "Projet Technologique", new Date(121, 3, 18, 23, 20)));
+        all_cours.add(new Cours(classe, "P333", "Math", new Date(121, 3, 19, 23, 20)));
+        all_cours.add(new Cours(classe, "P222", "Physique", new Date(121, 3, 20, 23, 20)));
         System.out.println("all_cours created");
 
+        /*
+        Runnable myNewThread1 = new Send_data_thread(all_cours, all_cours.getClass());
+        new Thread(myNewThread1).start();*/
 
-        Runnable myNewThread1 = new Read_rfid_thread(all_cours, all_cours.getClass());
-        new Thread(myNewThread1).start();
-        System.out.println("set present");
+        new Thread(new Read_rfid_thread(all_cours, all_cours.getClass())).start();
+        System.out.println("bite");
 
-        Runnable myNewThread2 = new Credit_remover(all_cours, all_cours.getClass());
-        new Thread(myNewThread2).start();
-        System.out.println("credit remover");
+        new Thread(new Send_data_thread(all_cours, all_cours.getClass())).start();
+        System.out.println("data");
 
-        
-
-
-        Json_doer faiseur = new Json_doer();
-        faiseur.make(all_cours);        
-        // cours = faiseur.read();
-        // System.out.println("Json Read");
 
         while(true){
-            System.out.println(listEleve.get(0).getPrenom() + listEleve.get(0).getCreditAbsence() );
-            System.out.println(listEleve.get(1).getPrenom() + listEleve.get(1).getCreditAbsence() );
         }
 
     }

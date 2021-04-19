@@ -19,7 +19,6 @@ public class Read_rfid_thread implements Runnable {
 
 	public Read_rfid_thread(All_Cours d, Class c) {
 		this.classeCours = d;
-		this.run();
 	}
 
 	@Override

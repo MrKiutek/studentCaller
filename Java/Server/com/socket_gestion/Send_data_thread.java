@@ -25,7 +25,6 @@ public class Send_data_thread implements Runnable {
 	public Send_data_thread(All_Cours d, Class c) {
 
 		this.classeCours = d;
-		this.run();
 	}
 
 	public void run() {

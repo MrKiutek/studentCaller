@@ -2,6 +2,7 @@ package com.socket_gestion;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import com.entities.All_Cours;
 import com.entities.Cours;
@@ -23,7 +24,7 @@ public class Credit_remover implements Runnable {
         Date now, cours_almost_end, cours_end;
         ArrayList<Cours> list_cours = this.all_cours.getListCours();
         Cours cours;
-        ArrayList<Eleve> list_eleve;
+        HashMap<String,Eleve> list_eleve;
 
         while (true) {
             now = new Date(System.currentTimeMillis());
@@ -37,11 +38,11 @@ public class Credit_remover implements Runnable {
 
                     list_eleve = cours.getAbsent();
 
-                    for (int j = 0; j < list_eleve.size(); j++) {
-                        if (list_eleve.get(j).getCreditAbsence() == 0) {
+                    for (String key : list_eleve.keySet()) {
+                        if (list_eleve.get(key).getCreditAbsence() == 0) {
                             System.out.println("L'eleve n'a déjà plus de crédit d'absence");
                         } else {
-                            list_eleve.get(j).setCreditAbsence(list_eleve.get(j).getCreditAbsence() - 1);
+                            list_eleve.get(key).setCreditAbsence(list_eleve.get(key).getCreditAbsence() - 1);
                         }
 
                     }
