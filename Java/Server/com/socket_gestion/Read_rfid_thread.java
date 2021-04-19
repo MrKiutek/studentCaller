@@ -36,7 +36,7 @@ public class Read_rfid_thread implements Runnable {
 				entree = new BufferedReader(new InputStreamReader(msocket.getInputStream()));
 				texte = entree.readLine();
 
-				classeCours.set_present(texte.substring(0, 7),texte.substring(8));
+				classeCours.set_present(texte.substring(0, 8),texte.substring(8));
 				entree.close();
 				msocket.close();
 			}
