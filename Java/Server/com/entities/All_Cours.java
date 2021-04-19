@@ -13,7 +13,7 @@ import org.apache.commons.lang.time.DateUtils;
 
 public class All_Cours implements Serializable{
     private ArrayList<Cours> list_cours;
-    private DateFormat format;
+    private transient DateFormat format;
 
     public All_Cours(){
         this.list_cours = new ArrayList<Cours>();
