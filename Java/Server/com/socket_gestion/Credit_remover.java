@@ -16,7 +16,6 @@ public class Credit_remover implements Runnable {
 
     public Credit_remover(All_Cours d, Class c) {
         this.all_cours = d;
-        this.run();
     }
 
 	@Override

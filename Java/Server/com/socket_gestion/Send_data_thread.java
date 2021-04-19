@@ -36,16 +36,11 @@ public class Send_data_thread implements Runnable {
 			standardiste = new ServerSocket(portEcoute);
 			while(true) {
 				msocket = standardiste.accept();
-				
 				sortie = new ObjectOutputStream(msocket.getOutputStream());
 				
 				ArrayList<Cours> myList = classeCours.getListCours();
-			
-
-			//CALL FUNCTION SEND DATA TO CALLER
 
 				sortie.writeObject(myList);
-
 				sortie.close();
 				msocket.close();
 			}

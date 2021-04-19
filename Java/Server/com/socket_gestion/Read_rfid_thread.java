@@ -35,8 +35,6 @@ public class Read_rfid_thread implements Runnable {
 				entree = new BufferedReader(new InputStreamReader(msocket.getInputStream()));
 				texte = entree.readLine();
 
-				//CALL FUNCTION WHICH MODIFY PRESENT absent
-
 				classeCours.set_present(texte.substring(0, 7),texte.substring(8));
 				entree.close();
 				socket.close();
