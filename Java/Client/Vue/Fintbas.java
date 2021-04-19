@@ -1,6 +1,17 @@
+package Vue;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+
+import com.entities.Cours;
+
 import java.util.ArrayList;
 
 public class Fintbas extends JFrame {
@@ -8,6 +19,8 @@ public class Fintbas extends JFrame {
     JLabel lcla, lcours, ldate, lheure,ltexte;
     JComboBox cbcla, cbcours, cbdate, cbheure;
     JButton bact, bgo,bdeco;
+    ArrayList<Cours> listCours;
+    JTable AffTableau1,AffTableau2;
 
     private ImageIcon imagECE, imageECE2;
 
@@ -33,22 +46,29 @@ public class Fintbas extends JFrame {
         panelespace();
 
         this.bgo.addActionListener(new ActionListener() {  
-            public void actionPerformed(ActionEvent e) {       
-            String cours = "" + cbcours.getItemAt(cbcours.getSelectedIndex());  
-            lcours.setText(cours);
-            String classe = "" + cbcla.getItemAt(cbcla.getSelectedIndex());  
-            lcla.setText(classe);
-            String date = "" + cbdate.getItemAt(cbdate.getSelectedIndex());  
-            ldate.setText(date);
-            String heure = "" + cbheure.getItemAt(cbheure.getSelectedIndex());  
-            lheure.setText(heure);
+            public void actionPerformed(ActionEvent e) {  
+                String cours = "" + cbcours.getItemAt(cbcours.getSelectedIndex());  
+                 lcours.setText(cours);
+                String classe = "" + cbcla.getItemAt(cbcla.getSelectedIndex());  
+                lcla.setText(classe);
+                String date = "" + cbdate.getItemAt(cbdate.getSelectedIndex());  
+                ldate.setText(date);
+                String heure = "" + cbheure.getItemAt(cbheure.getSelectedIndex());  
+                lheure.setText(heure);     
+                startSearch();
             }  
         });
 
         this.bact.addActionListener(new ActionListener() {  
             public void actionPerformed(ActionEvent e) {       
                 dispose();
-                Fcharge fcharge= new Fcharge();        
+                try {
+                    Fcharge fcharge= new Fcharge();
+                    dispose();
+                } catch (ClassNotFoundException | IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }        
             }  
         });
     }
@@ -77,9 +97,6 @@ public class Fintbas extends JFrame {
     }
 
     private void panelcentre1 (){
-        cours.add("Anglais");
-        cours.add("Math");
-        date.add("1/1/2020");
 
         JPanel panel2 = new JPanel(new GridLayout(1,7));
         
@@ -111,9 +128,6 @@ public class Fintbas extends JFrame {
     }
 
     private void panelcentre2 (){
-        cours.add("Anglais");
-        cours.add("Math");
-        date.add("1/1/2020");
 
         JPanel panel3 = new JPanel(new GridLayout(1,7));
         
@@ -169,9 +183,15 @@ public class Fintbas extends JFrame {
 
         String[] entetes1 = {"Prénom", "Nom"};
         Object[][] donnees1 = {
-            {"Johnathan", "Sykes"},
-            {"Adrien", "Germain"}};
-        JTable AffTableau1 = new JTable(donnees1,entetes1);
+            {"", "",""},};
+
+        ModeleStatique model = new ModeleStatique();
+
+        
+
+        AffTableau1 = new JTable();
+        AffTableau1.setModel(model);
+
         panel5.add(AffTableau1);
         this.add(panel5);
   
@@ -180,9 +200,8 @@ public class Fintbas extends JFrame {
 
         String[] entetes2 = {"Prénom", "Nom"};
         Object[][] donnees2 = {
-            {"Johnathan", "Sykes"},
-            {"Adrien", "Germain"}};
-        JTable AffTableau2 = new JTable(donnees2,entetes2);
+            {"", ""},};
+        AffTableau2 = new JTable(new ModeleStatique());
         panel5.add(AffTableau2);
   
         ltexte = new JLabel("");
@@ -251,4 +270,67 @@ public class Fintbas extends JFrame {
     public void setHeure(ArrayList<String> heure) {
         this.heure = heure;
     } 
+
+    public void setListCours(ArrayList<Cours> tab){
+        this.listCours = tab;
+        
+    }
+    
+    private int startSearch(){
+
+        String cours = "" + cbcours.getItemAt(cbcours.getSelectedIndex());  
+        String classe = "" + cbcla.getItemAt(cbcla.getSelectedIndex());  
+        String date = "" + cbdate.getItemAt(cbdate.getSelectedIndex());  
+        String heure = "" + cbheure.getItemAt(cbheure.getSelectedIndex());
+
+        DateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat timeForm = new SimpleDateFormat("hh:mm:ss a");
+
+        int index= 0;
+
+        
+        ((ModeleStatique)AffTableau1.getModel()).clearTable();
+        ((ModeleStatique)AffTableau2.getModel()).clearTable();
+
+        for(int i = 0; i<listCours.size(); i++){
+
+            if(cours.equals(listCours.get(i).getMatiere()) && classe.equals(listCours.get(i).getSalle()) && date.equals(dateForm.format(listCours.get(i).getDate_heure())) && heure.equals(timeForm.format(listCours.get(i).getDate_heure()))){
+
+                index = i;
+                break;
+
+                
+            }else{
+                return 0;
+            }
+        }
+
+        
+        
+        for(String key : listCours.get(index).getPresent().keySet() ){
+
+            
+
+            ((ModeleStatique)AffTableau1.getModel()).addRow(listCours.get(index).getPresent().get(key).getNom(), listCours.get(index).getPresent().get(key).getPrenom(), String.valueOf(listCours.get(index).getPresent().get(key).getCreditAbsence()));
+
+        }
+
+        
+        for(String key : listCours.get(index).getAbsent().keySet() ){
+
+            
+
+            ((ModeleStatique)AffTableau2.getModel()).addRow(listCours.get(index).getAbsent().get(key).getNom(), listCours.get(index).getAbsent().get(key).getPrenom(), String.valueOf(listCours.get(index).getAbsent().get(key).getCreditAbsence()));
+
+        }
+
+        return 1;
+
+        
+        
+        
+
+    }
+
+
 }

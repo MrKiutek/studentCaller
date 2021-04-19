@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
+import Vue.Flogin;
+
 public class Main {
  
     public static void main(String[] args) throws UnsupportedLookAndFeelException {

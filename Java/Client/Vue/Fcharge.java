@@ -1,6 +1,21 @@
-import javax.swing.*;
-import java.awt.*;
+package Vue;
+
+import java.awt.GridLayout;
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+
+import com.entities.Cours;
+
+import Controler.ReceiveData;
 
 public class Fcharge extends JFrame {
    
@@ -13,23 +28,21 @@ public class Fcharge extends JFrame {
     ArrayList <String> date = new ArrayList <>();
     ArrayList <String> heure = new ArrayList <>();
 
+    Fintbas Fintbas = new Fintbas();
+
     private ImageIcon imagECE;
     
     int i;
 
-    public Fcharge(){
-
-        cours.add("physique");
-        cla.add("SE4 APP1");
-        cla.add("SE5 APP1");
+    public Fcharge() throws UnknownHostException, ClassNotFoundException, IOException{
 
         fenetre(550,350);
         orgaFen(); 
         this.setVisible(true);
 
-        avancement();
+        useReceiveData();
 
-        Fintbas Fintbas = new Fintbas();
+        
         Fintbas.setCours(cours);
         Fintbas.setCla(cla);
         Fintbas.setHeure(heure);
@@ -48,6 +61,34 @@ public class Fcharge extends JFrame {
         this.setLayout(new GridLayout (2,1));
     }
 
+
+    private void useReceiveData(){
+
+        try {
+            ReceiveData rcv = new ReceiveData();
+
+            ArrayList<Cours> tab = rcv.start();
+            DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
+            DateFormat time = new SimpleDateFormat("hh:mm:ss a");
+
+            Fintbas.setListCours(tab);
+
+            for(int i = 0; i<tab.size(); i++){
+                this.cours.add(tab.get(i).getMatiere());
+                this.cla.add(tab.get(i).getSalle());
+                this.date.add(date.format(tab.get(i).getDate_heure()));
+                this.heure.add(time.format(tab.get(i).getDate_heure()));
+                
+            }
+
+
+        } catch (ClassNotFoundException | IOException | InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+    }
+
     private void orgaFen (){
         panel1 = new JPanel();
         panel1.add(image());
@@ -58,11 +99,8 @@ public class Fcharge extends JFrame {
         ltext = new JLabel("");  
         panel2.add(ltext);
 
-        progress = new JProgressBar(0,1000);
-        progress.setBounds(1,1,165,30);
-        progress.setValue(0);  
-        progress.setStringPainted(true);
-        panel2.add(progress);
+        ltext = new JLabel("");  
+        panel2.add(ltext);
 
         ltext = new JLabel("");  
         panel2.add(ltext);
@@ -73,8 +111,6 @@ public class Fcharge extends JFrame {
         ltext = new JLabel("Chargement ...",JLabel.CENTER);
         panel2.add(ltext);
 
-        ltext = new JLabel("");  
-        panel2.add(ltext);
 
         this.add(panel2);
     }
@@ -83,14 +119,6 @@ public class Fcharge extends JFrame {
         imagECE = new ImageIcon (this.getClass().getResource("/ECE.png"));
 
         return (new JLabel(imagECE));
-    }
-
-    public void avancement()
-    {
-        for ( i=0; i<1000000; i++ ){
-            progress.setValue(i);
-        }
-        
     }
 
     public ArrayList<String> getCours() {
