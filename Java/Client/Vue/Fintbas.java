@@ -82,7 +82,8 @@ public class Fintbas extends JFrame {
     
     private void fenetre(){
         this.setTitle("Student Caller");                        //Nom de notre fenêtre
-        this.setExtendedState(Frame.MAXIMIZED_BOTH);            //La fenêtre s'affiche en pleinne écran                            
+        this.setExtendedState(Frame.MAXIMIZED_BOTH);            //La fenêtre s'affiche en pleinne écran 
+        this.setSize(1500, 1000);                               //Taille de la fenêtre par défaut                                        
         this.setLocationRelativeTo(null);                       //Centre la fenêtre au centre de l'écran
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //Permet de fermer le programme quand nous fermons la fenêtre
         this.setResizable(true);                                //Permet à l'utilisateur de redimensionner la fenêtre

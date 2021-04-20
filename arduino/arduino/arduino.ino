@@ -1,4 +1,9 @@
-
+/* ---------------Programme ATMEGA328P---------------- */
+/* Ce programme a pour but de faire fonctionner les    */
+/* différents modules tels que le RFID, l'écran OLED,  */
+/* le buzzer et la liaison série vers le module        */
+/* ESP8266.                                            */
+/* --------------------------------------------------- */
 
 #include <SPI.h> // SPI
 #include <MFRC522.h> // RFID
@@ -9,16 +14,21 @@
 
 #define SS_PIN 10
 #define RST_PIN 9
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+// Largeur en pixel de l'écran OLED
+#define SCREEN_WIDTH 128 
+// Hauteur en pixel de l'écran OLED
+#define SCREEN_HEIGHT 64 
 
-#define BUZZER 4
+// Pin utilisée pour le Buzzer
+#define BUZZER 4 
 
-#define SALLE_ECE "P445"
+//Salle associée au dispositif (modifiable)
+#define SALLE_ECE "P445" 
 
+//Déclaration de la liaison série logiciel (Rx,Tx)
 SoftwareSerial mySerial(2,3);
 
-// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+// Déclaration de l'écran OLED de type SSD1306 utilisant l'I2C (pins SDA et SCL)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 // Déclaration 
@@ -30,49 +40,56 @@ MFRC522 rfid(SS_PIN, RST_PIN);
 
 void setup() 
 { 
-  // Init RS232
+  // Initialisation de la liaison série
   Serial.begin(9600);
 
-   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
+  // Démarrage de l'écran OLED, a l'addresse 0x3C 
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { 
     Serial.println(F("SSD1306 allocation failed"));
     for(;;);
   }
+
+  //Démarrage de la liaison série logicielle
   mySerial.begin(38400);
+
+
+  //On efface tout ce qu'il y a sur l'écran
   display.clearDisplay();
 
-  // Init SPI bus
+  // Initialisation du bus SPI
   SPI.begin(); 
 
-  // Init MFRC522 
+  // Initialisation du module RFID MFRC522
   rfid.PCD_Init();
 
+
+  //Définition du message d'attente sur l'OLED
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0, 10);
-  // Display static text
   display.println("Module ready");
   display.setCursor(0, 30);
   display.println("Wait for card");
   display.display(); 
 
-  Serial.println("INIT");
+  //Message indiquant que l'ATMEGA a bien démarré
+  Serial.println("Started !");
 
 }
  
 void loop() 
 {
+  // Appel de la fonction de détection de badge RFID
   rfidDetect();
 }
 
 
-
-
 void rfidDetect(){
 
-  // Tableau contentent l'ID
+  // Tableau d'octets contentent l'ID
   byte nuidPICC[4];
 
-    // Initialisé la boucle si aucun badge n'est présent 
+    // Initialise la boucle si aucun badge n'est présent 
   if ( !rfid.PICC_IsNewCardPresent())
     return;
 
@@ -80,32 +97,14 @@ void rfidDetect(){
   if ( !rfid.PICC_ReadCardSerial())
     return;
 
-  tone(BUZZER,440,100);
-  
-  String myString;
-  // Enregistrer l'ID du badge (4 octets) 
+  // Enregistrer l'ID du badge lu (4 octets) 
   for (byte i = 0; i < 4; i++) 
   {
-    nuidPICC[i] = rfid.uid.uidByte[i];
+    nuidPICC[i] = rfid.uid.uidByte[i]; //Enregistrement de l'octet i dans la case i du tableau
   }
-  
-  
-  /*
-  // Affichage de l'ID 
-  Serial.println("Un badge est passé");
-  Serial.println(" L'UID du tag est:");
-  for (byte i = 0; i < 4; i++) 
-  {
-    Serial.print(nuidPICC[i], HEX);
-    oledRFIDdetected(nuidPICC[i],i);
 
-    Serial.print(" ");
-  }
-  Serial.println();*/
-
-  
-  SendToEsp(nuidPICC);
-  oledRFIDdetected(nuidPICC);
+  SendToEsp(nuidPICC); // Appel de la fonction permettant d'envoyer l'UID lu a l'ESP8266
+  oledRFIDdetected(nuidPICC); //Appel de la fonction permettant d'afficher qu'un badge a été lu ainsi que son UID
 
   // Re-Init RFID
   rfid.PICC_HaltA(); // Halt PICC
@@ -113,27 +112,30 @@ void rfidDetect(){
 
 }
 
-void oledRFIDdetected(byte toDisp[]){
+void oledRFIDdetected(byte toDisp[]){ //fonction permettant d'afficher qu'un badge a été lu ainsi que son UID
 
-  display.clearDisplay();
-  display.setCursor(0,10);
-  display.println("Badge Detected !");
-  display.setCursor(0,30);
-  display.println("Badge UID :");
-  display.setCursor(0,50);
-  for (byte i = 0; i < 4; i++) 
+  display.clearDisplay(); //On efface tout ce qu'il y a sur l'écran
+  display.setCursor(0,10); //On défini le placement du curseur, a partir de ou on voudra écrire
+  display.println("Badge Detected !"); //On ecrit une phrase au niveau du curseur défini précédement
+  display.setCursor(0,30); //On change la position du curseur
+  display.println("Badge UID :"); //On ecrit une phrase au niveau du curseur
+  display.setCursor(0,50); //On change la position du curseur
+  for (byte i = 0; i < 4; i++)  //Affichage des 4 octets de l'UID au format hexadecimal
   {
     display.print(toDisp[i],HEX);
 
     display.print(" ");
   }
   
-  display.display();
-  delay(5000);
+  display.display(); //On affiche tout les changements que nous avons effectués auparavant
+ 
+  delay(5000); //On attend 5 secondes
+
+
+  // On réaffiche le texte d'attente d'un badge
 
   display.clearDisplay();
   display.setCursor(0, 10);
-  // Display static text
   display.println("Module ready");
   display.setCursor(0, 30);
   display.println("Wait for card");
@@ -142,20 +144,17 @@ void oledRFIDdetected(byte toDisp[]){
   
 }
 
-void SendToEsp(byte toSend[]){
+void SendToEsp(byte toSend[]){ // fonction permettant d'envoyer l'UID lu a l'ESP8266
 
-
-  char str[32] = "";
-  array_to_string(toSend,4,str);
-  mySerial.print(str);
-  mySerial.print(SALLE_ECE);
-
-  
+  char str[32] = ""; //Instanciation de notre chaine de caractères vide
+  array_to_string(toSend,4,str); //Appel de la fonction qui va retourner les octets et les mettre dans notre chaine de caractères
+  mySerial.print(str); //Envoie de l'UID sur la liaison série logicielle vers l'ESP8266
+  mySerial.print(SALLE_ECE); //Envoie de la salle ou se trouve le dispositif sur la liaison série logicielle vers l'ESP8266
 
 }
 
 
-void array_to_string(byte array[], unsigned int len, char buffer[])
+void array_to_string(byte array[], unsigned int len, char buffer[]) //Fonction permettant la conversion d'un tableau d'octet en String
 {
     for (unsigned int i = 0; i < len; i++)
     {
