@@ -1,16 +1,23 @@
+/*----------------- Le package ------------------------*/
+
 package Vue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+/*----------------- Les bibliothéques -----------------*/
 
 import javax.swing.table.AbstractTableModel;
 
+/*---------------------- Classe -----------------------*/
+
 public class ModeleStatique extends AbstractTableModel {
+
+/*------------------ Variable global ------------------*/
+
     private Object[][] donnees;
     private int row=1,colons=3;
- 
     private final String[] entetes = {"Prénom", "Nom", "Crédit d'absence"};
- 
+
+/*------------------- Constructeur --------------------*/
+
     public ModeleStatique() {
         super();
  
@@ -19,22 +26,6 @@ public class ModeleStatique extends AbstractTableModel {
         };
     }
  
-    public int getRowCount() {
-        return donnees.length;
-    }
- 
-    public int getColumnCount() {
-        return entetes.length;
-    }
- 
-    public String getColumnName(int columnIndex) {
-        return entetes[columnIndex];
-    }
- 
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        return donnees[rowIndex][columnIndex];
-    }
-
     public void addRow(String Nom,String Prenom,String RFID){
 
         row = row++;
@@ -53,18 +44,31 @@ public class ModeleStatique extends AbstractTableModel {
         donnees = newObj;
 
         fireTableDataChanged();
-
-
     }
 
     public void clearTable(){
         donnees = new Object[][]{
-            {"Prénom", "NOM", "Crédit d'absence"}
-
-            
+            {"Prénom", "NOM", "Crédit d'absence"}      
     };
 
-    fireTableDataChanged();
+    fireTableDataChanged();     
     }
 
+/*---------------------- Getter -----------------------*/
+    
+    public int getRowCount() {
+        return donnees.length;
+    }
+ 
+    public int getColumnCount() {
+        return entetes.length;
+    }
+ 
+    public String getColumnName(int columnIndex) {
+        return entetes[columnIndex];
+    }
+ 
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        return donnees[rowIndex][columnIndex];
+    }
 }
