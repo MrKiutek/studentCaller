@@ -13,12 +13,11 @@ public class ModeleStatique extends AbstractTableModel {
 /*------------------ Variable global ------------------*/
 
     private Object[][] donnees;
-    private int row=1,colons=3;
     private final String[] entetes = {"Prénom", "Nom", "Crédit d'absence"};
 
 /*------------------- Constructeur --------------------*/
 
-    public ModeleStatique() {
+    public ModeleStatique() { 
         super();
  
         donnees = new Object[][]{
@@ -26,32 +25,34 @@ public class ModeleStatique extends AbstractTableModel {
         };
     }
  
-    public void addRow(String Nom,String Prenom,String RFID){
+    public void addRow(String Nom,String Prenom,String RFID){ //Fonction permettant l'ajout d'une ligne au tableau
 
-        row = row++;
-        Object[][] newObj = new Object[donnees.length+1][donnees[0].length];
-        System.out.println(String.valueOf(donnees.length));
-        for(int i = 0; i < donnees.length; i++){
+        Object[][] newObj = new Object[donnees.length+1][donnees[0].length]; //Création d'un nouvel objet de taille
+
+        for(int i = 0; i < donnees.length; i++){ // Copie des données de l'objet existant dans le nouveau tableau
             for(int j = 0; j<donnees[i].length; j++){
                 newObj[i][j] = donnees[i][j];
             }
         }
 
+        //Ajout des données de la nouvelle ligne dans la derniere case du tableau
         newObj[donnees.length][0] = Prenom;
         newObj[donnees.length][1] = Nom;
         newObj[donnees.length][2] = RFID;
 
-        donnees = newObj;
+        donnees = newObj; //Remplacement des anciennes données par les nouvelles avec la nouvelle ligne
 
-        fireTableDataChanged();
+        fireTableDataChanged(); //Event pour signaler que les données ont changées et qu'il faut actualiser la vue
     }
 
-    public void clearTable(){
+
+
+    public void clearTable(){ //Fonction pour supprimer toute la table sauf l'entête
         donnees = new Object[][]{
             {"Prénom", "NOM", "Crédit d'absence"}      
     };
 
-    fireTableDataChanged();     
+    fireTableDataChanged();     //Event pour signaler que les données ont changées et qu'il faut actualiser la vue
     }
 
 /*---------------------- Getter -----------------------*/

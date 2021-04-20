@@ -284,25 +284,29 @@ public class Fintbas extends JFrame {
         
     }
     
-    private int startSearch() throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException{
+    private int startSearch() throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException{ //Fonction permettant le remplissage des deux tableau en fonction des paramètres choisi par l'utilisateur
 
+        //Récupération des données selectionnées par l'utilisateur
         String cours = "" + cbcours.getItemAt(cbcours.getSelectedIndex());  
         String classe = "" + cbcla.getItemAt(cbcla.getSelectedIndex());  
         String date = "" + cbdate.getItemAt(cbdate.getSelectedIndex());  
         String heure = "" + cbheure.getItemAt(cbheure.getSelectedIndex());
 
+        //Création des formats pour la date et l'heure
         DateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy");
         DateFormat timeForm = new SimpleDateFormat("hh:mm:ss a");
 
+        //Indice du cours selectionné
         int index= 0;
 
-
+        // Reception de la liste des cours directement depuis le serveur
         ArrayList<Cours> rd = new ReceiveData().start();
 
-        
+        //Suppression des données dans les tableaux
         ((ModeleStatique)AffTableau1.getModel()).clearTable();
         ((ModeleStatique)AffTableau2.getModel()).clearTable();
 
+        //Récupération de l'indice du cours selectionné par l'utilisateur dans la liste
         for(int i = 0; i<rd.size(); i++){
 
             if(cours.equals(rd.get(i).getMatiere()) && classe.equals(rd.get(i).getSalle()) && date.equals(dateForm.format(rd.get(i).getDate_heure())) && heure.equals(timeForm.format(rd.get(i).getDate_heure()))){
@@ -313,10 +317,12 @@ public class Fintbas extends JFrame {
             }
         }
 
+        //Ajout de tout les présents dans le tableau de présents et affichage de celui-ci
         for(String key : rd.get(index).getPresent().keySet() ){
             ((ModeleStatique)AffTableau1.getModel()).addRow(rd.get(index).getPresent().get(key).getNom(), rd.get(index).getPresent().get(key).getPrenom(), String.valueOf(rd.get(index).getPresent().get(key).getCreditAbsence()));
         }
 
+        //Ajout de tout les absent dans le tableau des absent et affichage de celui-ci
         for(String key : rd.get(index).getAbsent().keySet() ){
             ((ModeleStatique)AffTableau2.getModel()).addRow(rd.get(index).getAbsent().get(key).getNom(), rd.get(index).getAbsent().get(key).getPrenom(), String.valueOf(rd.get(index).getAbsent().get(key).getCreditAbsence()));
         }
