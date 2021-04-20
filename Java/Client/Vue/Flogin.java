@@ -1,21 +1,29 @@
+/*----------------- Le package ------------------------*/
+
 package Vue;
+
+/*----------------- Les bibliothéques -----------------*/
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import javax.swing.*;
 import java.awt.*;
-import Vue.Ferreur;
+
+/*---------------------- Classe -----------------------*/
+/*-------- Création d'une fenêtre de connection -------*/
 
 public class Flogin extends JFrame {
+
+/*------------------ Variable global ------------------*/
 
     JLabel lco,lmp, lti,ltext,rien;
     JButton bco;
     JPasswordField tmp;
     JTextField tco;
-
-    private ImageIcon imagECE;
  
+/*------------------- Constructeur --------------------*/
+
     public Flogin(){  
         
         fenetre(350,250);                       //Appel la fonction fenêtre et lui donnant sa taille
@@ -35,34 +43,34 @@ public class Flogin extends JFrame {
         this.setResizable(false);                             //La taille de la fenêtre ne peut pas être redimensionné
     }
 
-    //Fonction permettant de faire le design de notre Jpanel de tête
+    //Fonction permettant de faire le design de notre JPanel de tête
     private void paneltitre (){
-        JPanel panel1 = new JPanel(new GridLayout(1,1));    //Création d'un Jpanel avec une grille de 1 ligne et 1 colonne
+        JPanel panel1 = new JPanel(new GridLayout(1,1));    //Création d'un JPanel avec une grille de 1 ligne et 1 colonne
 
-        lti = new JLabel("S'identifier :",JLabel.CENTER);   //Crée, écrit l'information et le centre dans le Jlabel
+        lti = new JLabel("S'identifier :",JLabel.CENTER);   //Crée, écrit l'information et le centre dans le JLabel
         lti.setFont(new Font("Serif", Font.BOLD, 30));      //Défini la police et et la taille d'écriture
-        panel1.add(lti);                                    //Jlabel va dans le Jpanel
+        panel1.add(lti);                                    //JLabel va dans le JPanel
 
-        this.add(panel1);                                   //Affiche le Jpanel
+        this.add(panel1);                                   //Affiche le JPanel
     }
 
-    //Fonction permettant de faire le design de notre Jpanel du milieu
+    //Fonction permettant de faire le design de notre JPanel du milieu
     private void panelmilieu(){
-        JPanel panel2 = new JPanel(new GridLayout(2,2));    //Création d'un Jpanel avec une grille de 2 lignes et 2 colonnes
+        JPanel panel2 = new JPanel(new GridLayout(2,2));    //Création d'un JPanel avec une grille de 2 lignes et 2 colonnes
 
-        lco = new JLabel("Identifiant :",JLabel.CENTER);;
-        panel2.add(lco);
+        lco = new JLabel("Identifiant :",JLabel.CENTER);;   //Création, le centré et écrire l'infromation dans un JLabel
+        panel2.add(lco);                                    //Met le JLabel dans le JPanel
 
-        tco = new JTextField();  
-        panel2.add(tco);
+        tco = new JTextField();                             //Création d'un JTextField
+        panel2.add(tco);                                    //Met le JTextField dans le JPanel
 
-        lmp = new JLabel("Mot de passe :",JLabel.CENTER);   
-        panel2.add(lmp);
+        lmp = new JLabel("Mot de passe :",JLabel.CENTER);   //Création, le centré et écrire l'infromation dans un JLabel
+        panel2.add(lmp);                                    //Met le JLabel dans le JPanel
 
-        tmp = new JPasswordField();    
-        panel2.add(tmp);
+        tmp = new JPasswordField();                         //Création d'un JPasswordField    
+        panel2.add(tmp);                                    //Met le JPasswordField  dans le JPanel
         
-        this.add(panel2);                                   //Affichage de notre Jpanel contennant les Jlabel
+        this.add(panel2);                                   //Affichage de notre JPanel contennant les JLabel
 
         //Création d'un listener permttant de savoir quand l'utilisateur appuye sur entrée
         //Marche dans la case d'écriture de l'identifiant
@@ -84,7 +92,7 @@ public class Flogin extends JFrame {
             }});
         
         //Création d'un listener permttant de savoir quand l'utilisateur appuye sur entrée
-        //Marche dans la case d'écriture du code
+        //Marche dans la case d'écriture du mot de passe
         this.tco.addActionListener(new ActionListener(){ 
             public void actionPerformed(ActionEvent e){ 
                 //Teste si l'identifiant et le code sont bon
@@ -103,28 +111,28 @@ public class Flogin extends JFrame {
             }});
     }
 
-    //sFonction permettant de faire le design de notre Jpanel de fin
+    //Fonction permettant de faire le design de notre JPanel de fin
     private void panelfin (){
-        JPanel panel3 = new JPanel(new GridLayout(1,3));    //Création d'un Jpanel avec une grille de 1 ligne et 3 colonnes
+        JPanel panel3 = new JPanel(new GridLayout(1,3));    //Création d'un JPanel avec une grille de 1 ligne et 3 colonnes
 
-        rien = new JLabel("");
-        panel3.add(rien);
+        rien = new JLabel("");                              //Crée un JLabel vide
+        panel3.add(rien);                                   //JLabel va dans le JPanel
 
         bco = new JButton("Connection");                    //Création d'un Jbouton
-        panel3.add(bco);
+        panel3.add(bco);                                    //JButton va dans le JPanel
 
-        this.add(panel3);
-        rien = new JLabel("");
+        rien = new JLabel("");                              //Crée un JLabel vide
+        panel3.add(rien);                                   //JLabel va dans le JPanel
 
-        panel3.add(rien);                                   //Affiche le Jpanel contennat les Jlabel et le Jbouton
+        this.add(panel3);                                   //Met le JPanel dans le JFrame
 
-        //Listener losrque l'utilsateur appuye sur le bouton
+        //Création d'un listener testant si l'utilsateur appuye sur le bouton
         this.bco.addActionListener(new ActionListener() {  
             public void actionPerformed(ActionEvent e) { 
                 //Teste si l'identifiant et le code sont bon
                 if (connect(tco.getText(), tmp.getText()) == true){
                     try {
-                        Fcharge fcharge= new Fcharge();     //Va  à la classe Fcharge
+                        Fcharge fcharge= new Fcharge();     //Va à la classe Fcharge
                     } catch (ClassNotFoundException | IOException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
@@ -138,7 +146,7 @@ public class Flogin extends JFrame {
         });
     }
 
-    //Fonction permettant de tester si l'identifiant et le code sont bon et retourne Vrais ou Faux
+    //Fonction permettant de tester si l'identifiant et le code sont bon puis retourne Vrais ou Faux
     private boolean connect (String id, String mp){
         //Test si l'identifiant et le code son bon
         if ((id.equals("admin")) && (mp.equals("1234"))){

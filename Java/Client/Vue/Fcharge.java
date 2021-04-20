@@ -1,4 +1,8 @@
+/*----------------- Le package ------------------------*/
+
 package Vue;
+
+/*----------------- Les bibliothéques -----------------*/
 
 import java.awt.GridLayout;
 import java.io.IOException;
@@ -14,8 +18,15 @@ import javax.swing.JProgressBar;
 import com.entities.Cours;
 import Controler.ReceiveData;
 
+/*---------------------- Classe -----------------------*/
+/*------- Création d'une fenêtre de chargement --------*/
+/*Celle-ci peut s'afficher ou non en fonction du temps */
+/*------------------ de chargement --------------------*/
+
 public class Fcharge extends JFrame {
    
+/*------------------ Variable global ------------------*/
+
     JProgressBar progress;
     JPanel panel1,panel2;
     JLabel ltext;
@@ -26,16 +37,19 @@ public class Fcharge extends JFrame {
     ArrayList <String> date = new ArrayList <>();
     ArrayList <String> heure = new ArrayList <>();
 
-    Fintbas Fintbas = new Fintbas();    //Crée un nom afin de pouvoir communiquer avec la classe Fintbas 
-
     private ImageIcon imagECE;
+
+    Fintbas Fintbas = new Fintbas();    //Crée un nom afin de pouvoir communiquer avec la classe Fintbas
     
+/*------------------- Constructeur --------------------*/
+
     public Fcharge() throws UnknownHostException, ClassNotFoundException, IOException{
 
         fenetre(550,350);               //Appel la fonction fenêtre et lui donnant sa taille
         orgaFen();                      //Appel de la fonction orgaFen
         useReceiveData();               //Appel de la fonction useReceiveData
 
+    
         //Setter permettant de récupérer les Arraylist de la classe Fintbas
         Fintbas.setCours(cours);    
         Fintbas.setCla(cla);
@@ -44,7 +58,7 @@ public class Fcharge extends JFrame {
 
         Fintbas.gene();                 //Appel de la fonction gene de la classe Fintbas
 
-        dispose();                      //Femer la fentre Flogin
+        dispose();                      //Femer la fentre Fcharge
         Fintbas.setVisible(true);       //Permet d'afficher la fenêtre
     }
     
@@ -84,24 +98,24 @@ public class Fcharge extends JFrame {
     private void orgaFen (){
         panel1 = new JPanel();                                  //Création d'un JPanel
         panel1.add(image());                                    //Appel de la fonction image pour la mettre dans le JPanel
-        this.add(panel1);                                       //Met le Jpanel dans le JFrame
+        this.add(panel1);                                       //Met le JPanel dans le JFrame
 
-        panel2 = new JPanel(new GridLayout(2,3));               // Création d'un Jpanel de grille 2 lignes et 3 colonnes
+        panel2 = new JPanel(new GridLayout(2,3));               // Création d'un JPanel de grille 2 lignes et 3 colonnes
         
-        ltext = new JLabel("");  
-        panel2.add(ltext);
+        ltext = new JLabel("");                                 //Création d'un JLabel vide
+        panel2.add(ltext);                                      //JLabel va dans un JPanel
 
-        ltext = new JLabel("");  
-        panel2.add(ltext);
+        ltext = new JLabel("");                                 //Création d'un JLabel vide
+        panel2.add(ltext);                                      //JLabel va dans un JPanel
 
-        ltext = new JLabel("");  
-        panel2.add(ltext);
+        ltext = new JLabel("");                                 //Création d'un JLabel vide
+        panel2.add(ltext);                                      //JLabel va dans un JPanel
 
-        ltext = new JLabel("");  
-        panel2.add(ltext);
+        ltext = new JLabel("");                                 //Création d'un JLabel vide
+        panel2.add(ltext);                                      //JLabel va dans un JPanel
 
-        ltext = new JLabel("Chargement ...",JLabel.CENTER);     //Ecrit l'information et le centre dans le Jlabel
-        panel2.add(ltext);
+        ltext = new JLabel("Chargement ...",JLabel.CENTER);     //Crée, écrit l'information et le centre dans le JLabel
+        panel2.add(ltext);                                      //JLabel va dans un JPanel
 
         this.add(panel2);                                       //Met le JPanel dans le JFrame
     }
@@ -112,19 +126,24 @@ public class Fcharge extends JFrame {
         return (new JLabel(imagECE));                                       //Retourne l'image dns un JLabel
     }
 
+/*---------------------- Getter -----------------------*/
+
     //Fonction permettant d'envoyer les Arraylist à d'autre classe
     public ArrayList<String> getCours() {
         return this.cours;
     }
 
+    //Fonction permettant d'envoyer les Arraylist à d'autre classe
     public ArrayList<String> getCla() {
         return this.cla;
     }
 
+    //Fonction permettant d'envoyer les Arraylist à d'autre classe
     public ArrayList<String> getDate() {
         return this.date;
     }
 
+    //Fonction permettant d'envoyer les Arraylist à d'autre classe
     public ArrayList<String> getHeure() {
         return this.heure;
     }
