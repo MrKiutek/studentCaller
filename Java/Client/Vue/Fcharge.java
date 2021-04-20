@@ -74,15 +74,15 @@ public class Fcharge extends JFrame {
     //Fonction permettant de recvoir le tableau du serveur
     private void useReceiveData(){
         try {
-            ReceiveData rcv = new ReceiveData();
+            ReceiveData rcv = new ReceiveData();                    //Création d'un object ReceiveData
 
-            ArrayList<Cours> tab = rcv.start();                     //Création d'une Arraylist
-            DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
-            DateFormat time = new SimpleDateFormat("hh:mm:ss a");
+            ArrayList<Cours> tab = rcv.start();                     //Récupération de la liste des cours
+            DateFormat date = new SimpleDateFormat("MM/dd/yyyy");   //Création du format pour la date
+            DateFormat time = new SimpleDateFormat("hh:mm:ss a");   //Création du format pour l'heure
 
-            Fintbas.setListCours(tab);
+            Fintbas.setListCours(tab);                              //Passage de la liste des cours à la nouvelle fenêtre princiupale
 
-            for(int i = 0; i<tab.size(); i++){
+            for(int i = 0; i<tab.size(); i++){                      //Ajouts des différents champs contenus dans la liste des cours dans les listes a passer à la nouvelle fenêtre
                 this.cours.add(tab.get(i).getMatiere());
                 this.cla.add(tab.get(i).getSalle());
                 this.date.add(date.format(tab.get(i).getDate_heure()));
