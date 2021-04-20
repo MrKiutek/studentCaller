@@ -1,20 +1,12 @@
 package com.socket_gestion;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-
-import java.net.Socket;
-
 import com.entities.All_Cours;
 import com.entities.Cours;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
-
 import java.io.ObjectOutputStream;
 
 public class Send_data_thread implements Runnable {
