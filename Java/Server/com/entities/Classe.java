@@ -1,14 +1,20 @@
 package com.entities;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/* ------------------Classe Classe-------------------- */
+/* Cette classe compose une classe. Elle contient les  */
+/* élèves et le nom de la classe                       */
+/* Implémente serializable pour pouvoir être envoyé    */
+/* par socket                                          */
+/* --------------------------------------------------- */
 
 public class Classe implements Serializable{
     private String nom;
     private ArrayList<Eleve> listEleve;
 
+    /* ---Constructeur--- */
     public Classe(String nom, ArrayList<Eleve> listEleve) {
         this.nom = nom;
         this.listEleve = listEleve;

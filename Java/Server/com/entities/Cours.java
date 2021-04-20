@@ -3,30 +3,42 @@ package com.entities;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+/* ------------------Classe Cours--------------------- */
+/* Cette classe compose un cours. Il contient une      */
+/* classe, une salle, une matière, une date/horaire,   */
+/* une liste d'élèves présents et une autre d'absents. */
+/* Implémente serializable pour pouvoir être envoyé    */
+/* par socket                                          */
+/* --------------------------------------------------- */
+
 public class Cours implements Serializable {
     private String salle, matiere;
-    private transient DateFormat format;
+    private transient DateFormat format; //Format d'affichage de la date et de l'heure
     private Date date_heure;
     private transient Classe classe;
     private HashMap<String,Eleve> present;
     private HashMap<String,Eleve> absent;
-    private boolean call_clotured;
+
+    //Cette variable sert à savoir si les crédits d'absences ont déjà été retirés aux élèves absents :
+    private boolean call_clotured;  
     private static final long serialVersionUID = 1;
 
+    /* ---Constructeur--- */
     public Cours(Classe classe, String salle, String matiere, Date date_heure) {
         this.setClasse(classe);
         this.setSalle(salle);
         this.setMatiere(matiere);
         this.setFormat(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"));
         this.setDate_heure(date_heure);
-        this.setCall_clotured(false);
 
+        //Par défaut, l'appel n'est pas cloturé. Il sera cloturé par un autre thread
+        this.setCall_clotured(false); 
         this.absent = new HashMap<String,Eleve>();
         this.present = new HashMap<String,Eleve>();
+        //Par défaut, tous les élèves de la classe sont absents et ils seront notés présents au fur et à mesure
         for (int i=0; i < classe.getListEleve().size(); i++){
             this.absent.put(classe.getListEleve().get(i).getRfid(),classe.getListEleve().get(i));
         }
@@ -34,6 +46,11 @@ public class Cours implements Serializable {
 
     
     public void setPresent(String rfid){
+        /* Prend en paramètre le rfid d'un élève    */
+        /* Le rfid d'une carte étudiant est utilisé */
+        /* comme clé des tables de hashage. On      */
+        /* l'élève dans la liste des présents et on */
+        /* le retire des absents                    */
         this.present.put(rfid, this.absent.get(rfid));
         this.absent.remove(rfid);
     }
