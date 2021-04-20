@@ -6,15 +6,11 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-
 import com.entities.Cours;
-
 import Controler.ReceiveData;
-
 import java.util.ArrayList;
 
 public class Fintbas extends JFrame {
@@ -27,6 +23,7 @@ public class Fintbas extends JFrame {
 
     private ImageIcon imagECE, imageECE2;
 
+    //Création des Arraylist
     ArrayList <String> cours = new ArrayList <>();
     ArrayList <String> cla = new ArrayList <>();
     ArrayList <String> date = new ArrayList <>();
@@ -34,32 +31,34 @@ public class Fintbas extends JFrame {
 
     public Fintbas(){  
     
-        fenetre(); 
+        fenetre();              //Appel de la fonction fenêtre
     }
 
+    //Fonction permettant de générer le design de la fenêtre
     public void gene(){
-        paneltitre();
-        panelespace();
-        panelcentre1();
-        panelcentre2();
-        panelcentre3();
-        tableau();
-        panelespace();
-        panelfin2();
-        panelespace();
+        paneltitre();           //Appel de la fonction paneltitre
+        panelespace();          //Appel de la fonction panelespace
+        panelcentre1();         //Appel de la fonction panelcentre1
+        panelcentre2();         //Appel de la fonction panelcentre2
+        panelcentre3();         //Appel de la fonction panelcentre3
+        tableau();              //Appel de la fonction tableau
+        panelespace();          //Appel de la fonction panelspace
+        panelfin2();            //Appel de la fonction panelfin2
+        panelespace();          //Appel de la fonction panelspace
 
+        //Création d'un Listener permttant de savoir quand l'utilisateur appuye sur le bouton
         this.bgo.addActionListener(new ActionListener() {  
             public void actionPerformed(ActionEvent e) {  
-                String cours = "" + cbcours.getItemAt(cbcours.getSelectedIndex());  
-                 lcours.setText(cours);
-                String classe = "" + cbcla.getItemAt(cbcla.getSelectedIndex());  
-                lcla.setText(classe);
-                String date = "" + cbdate.getItemAt(cbdate.getSelectedIndex());  
-                ldate.setText(date);
-                String heure = "" + cbheure.getItemAt(cbheure.getSelectedIndex());  
-                lheure.setText(heure);     
+                String cours = "" + cbcours.getItemAt(cbcours.getSelectedIndex());      //Récupére les informations de la JComboBox
+                lcours.setText(cours);                                                  //Mets l'information de la JComboBox dans le JLable
+                String classe = "" + cbcla.getItemAt(cbcla.getSelectedIndex());         //Récupére les informations de la JComboBox
+                lcla.setText(classe);                                                   //Mets l'information de la JComboBox dans le JLable
+                String date = "" + cbdate.getItemAt(cbdate.getSelectedIndex());         //Récupére les informations de la JComboBox
+                ldate.setText(date);                                                    //Mets l'information de la JComboBox dans le JLable
+                String heure = "" + cbheure.getItemAt(cbheure.getSelectedIndex());      //Récupére les informations de la JComboBox
+                lheure.setText(heure);                                                  //Mets l'information de la JComboBox dans le JLable
                 try {
-                    startSearch();
+                    startSearch();                                                      //Appel la fonction startSearch
                 } catch (ClassNotFoundException | IOException | InterruptedException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -67,12 +66,12 @@ public class Fintbas extends JFrame {
             }  
         });
 
+        //Création d'un Listener permttant de savoir quand l'utilisateur appuye sur le bouton
         this.bact.addActionListener(new ActionListener() {  
-            public void actionPerformed(ActionEvent e) {       
-                dispose();
+            public void actionPerformed(ActionEvent e) {                                                
                 try {
-                    Fcharge fcharge= new Fcharge();
-                    dispose();
+                    Fcharge fcharge= new Fcharge();                                     //Va dans la fonction Fcharge
+                    dispose();                                                          //Femer la fentre Flogin
                 } catch (ClassNotFoundException | IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -82,12 +81,12 @@ public class Fintbas extends JFrame {
     }
     
     private void fenetre(){
-        this.setTitle("Student Caller");    
-        this.setExtendedState(Frame.MAXIMIZED_BOTH);                                
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(true);
-        this.setLayout(new GridLayout(9,1));
+        this.setTitle("Student Caller");                        //Nom de notre fenêtre
+        this.setExtendedState(Frame.MAXIMIZED_BOTH);            //La fenêtre s'affiche en pleinne écran                            
+        this.setLocationRelativeTo(null);                       //Centre la fenêtre au centre de l'écran
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //Permet de fermer le programme quand nous fermons la fenêtre
+        this.setResizable(true);                                //Permet à l'utilisateur de redimensionner la fenêtre
+        this.setLayout(new GridLayout(9,1));                    //Crée une grille de 9 ligne et 1 colonne pour le design de la fenêtre
     }
 
     private void paneltitre (){
@@ -306,42 +305,20 @@ public class Fintbas extends JFrame {
         for(int i = 0; i<rd.size(); i++){
 
             if(cours.equals(rd.get(i).getMatiere()) && classe.equals(rd.get(i).getSalle()) && date.equals(dateForm.format(rd.get(i).getDate_heure())) && heure.equals(timeForm.format(rd.get(i).getDate_heure()))){
-
                 index = i;
-                break;
-
-                
+                break;  
             }else{
                 return 0;
             }
         }
 
-        
-        
         for(String key : rd.get(index).getPresent().keySet() ){
-
-            
-
             ((ModeleStatique)AffTableau1.getModel()).addRow(rd.get(index).getPresent().get(key).getNom(), rd.get(index).getPresent().get(key).getPrenom(), String.valueOf(rd.get(index).getPresent().get(key).getCreditAbsence()));
-
         }
 
-        
         for(String key : rd.get(index).getAbsent().keySet() ){
-
-            
-
             ((ModeleStatique)AffTableau2.getModel()).addRow(rd.get(index).getAbsent().get(key).getNom(), rd.get(index).getAbsent().get(key).getPrenom(), String.valueOf(rd.get(index).getAbsent().get(key).getCreditAbsence()));
-
         }
-
         return 1;
-
-        
-        
-        
-
     }
-
-
 }
