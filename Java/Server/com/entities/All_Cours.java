@@ -5,6 +5,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.json_computer.Json_doer;
+
 import org.apache.commons.lang.time.DateUtils;
 
 /* ------------------Classe All_Cours----------------- */
@@ -72,6 +75,8 @@ public class All_Cours implements Serializable{
         Cours actual = this.find(now, salle);
         if (actual != null && !actual.getPresent().containsKey(rfid)){
             actual.setPresent(rfid);
+            Json_doer doer = new Json_doer();
+            doer.make(this); 
         } else {
             System.out.println("Cours not found or already present");
         }

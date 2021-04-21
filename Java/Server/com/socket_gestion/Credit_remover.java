@@ -8,6 +8,7 @@ import java.util.HashMap;
 import com.entities.All_Cours;
 import com.entities.Cours;
 import com.entities.Eleve;
+import com.json_computer.Json_doer;
 
 /* ---------------Classe Credit_Remover---------------- */
 /* Cette classe compose le thread qui retirera les      */
@@ -57,6 +58,8 @@ public class Credit_remover implements Runnable {
                     //Quand les crédits ont été retirés, on marque l'appel comme cloturé dans le cours pour éviter 
                     //la redondance de la supression des crédits d'absence
                     cours.setCall_clotured(true);
+                    Json_doer doer = new Json_doer();
+                    doer.make(this.all_cours); 
                 }
             }
 
