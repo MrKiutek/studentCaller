@@ -70,14 +70,16 @@ public class Credit_remover implements Runnable {
 
     }
 
-
-    private void checkOtherCours(HashMap<String,Eleve> myList,int numeroCours){
+//Fonction permettant de faire une passe sur tout les autres cours excepté celui qui vient de se terminer, 
+//et si y'a des élèves de la liste des absent du cours qui vient de se terminer dans les liste de présent 
+//et d'absent des autres cours, ça met a jours leurs crédits
+    private void checkOtherCours(HashMap<String,Eleve> myList,int numeroCours){ 
 
         ArrayList<Cours> list_cours = this.all_cours.getListCours(); //Récupération de la liste des cours
-        for(int i =0; i<list_cours.size(); i++){
-            if(i != numeroCours){
-            for(String key : list_cours.get(i).getAbsent().keySet()){
-                if(myList.containsKey(key)){
+        for(int i =0; i<list_cours.size(); i++){    //On parcours la liste des cours
+            if(i != numeroCours){ //On verifie que le cours actuel n'est pas le cours qui vient de se terminer
+            for(String key : list_cours.get(i).getAbsent().keySet()){ //Pour chaque clé dans la liste des absent du cours
+                if(myList.containsKey(key)){ //Est ce que la liste des absents contient la personne actuelle (selon sa clé)
                     if (list_cours.get(i).getAbsent().get(key).getCreditAbsence() == 0) {
                         System.out.println("L'eleve n'a déjà plus de crédit d'absence");
                     } else {
@@ -87,6 +89,7 @@ public class Credit_remover implements Runnable {
 
             }
 
+            //Exactement pareil mais pour les listes de présents aux autres cours
             for(String keyy : list_cours.get(i).getPresent().keySet()){
                 if(myList.containsKey(keyy)){
                     if (list_cours.get(i).getPresent().get(keyy).getCreditAbsence() == 0) {
