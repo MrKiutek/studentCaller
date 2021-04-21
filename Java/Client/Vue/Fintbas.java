@@ -267,9 +267,8 @@ public class Fintbas extends JFrame {
         return (new JLabel(imagECE));                                       //Retourne un JLabel contenant une image
     }
     
-    //Fonction permettant d'actualiser
-    private int startSearch() throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException{ //Fonction permettant le remplissage des deux tableau en fonction des paramètres choisi par l'utilisateur
-
+    //Fonction permettant le remplissage des deux tableaux en fonction des paramètres choisi par l'utilisateur
+    private int startSearch() throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException{ 
     //Récupération des données selectionnées par l'utilisateur
     String cours = "" + cbcours.getItemAt(cbcours.getSelectedIndex());  
     String classe = "" + cbcla.getItemAt(cbcla.getSelectedIndex());  
