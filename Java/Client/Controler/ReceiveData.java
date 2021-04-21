@@ -13,7 +13,7 @@ import com.entities.Cours;
 
 public class ReceiveData {
 
-    static final String serverName = "192.168.3.11";
+    static final String serverName = "192.168.43.97";
     static final int serverPort = 3334;
 
     public ReceiveData() throws UnknownHostException, IOException, ClassNotFoundException {

@@ -8,9 +8,9 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 
-const char* ssid = "SFR-kiutek"; //SSID de point d'accès
-const char* pass = "louna150802"; //mot de passe du point d'accès
-const char* host = "192.168.3.11"; //Addresse IP de la machine serveur
+const char* ssid = "tulaurapa"; //SSID de point d'accès
+const char* pass = "kiutek1234"; //mot de passe du point d'accès
+const char* host = "192.168.43.97"; //Addresse IP de la machine serveur
 const int   port = 3333; // Port utilisé par le serveur
 
 
