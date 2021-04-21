@@ -2,10 +2,20 @@ package com.entities;
 
 import java.io.Serializable;
 
+/* ------------------Classe Eleve-------------------- */
+/* Cette classe compose un élève. On s'en servira     */
+/* pour gérer les caractéristiques des élèves d'une   */
+/* classe, pouvoir les identifier et connaitre des    */
+/* informations comme les crédits d'absence restants  */
+/* Implémente serializable pour pouvoir être envoyé   */
+/* par socket                                         */
+/* -------------------------------------------------- */
+
 public class Eleve implements Serializable{
     String nom, prenom, rfid, classe;
     int creditAbsence;
 
+    /* ---Constructeur--- */
     public Eleve(String nom, String prenom, String rfid, String classe) {
         this.nom = nom;
         this.prenom = prenom;

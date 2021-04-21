@@ -44,10 +44,6 @@ public class Main {
         new Thread(new Send_data_thread(all_cours, all_cours.getClass())).start();
         System.out.println("This exists for debugging 4");
 
-
-        while(true){
-        }
-
     }
 
 }
