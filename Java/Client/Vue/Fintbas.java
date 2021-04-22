@@ -295,7 +295,7 @@ public class Fintbas extends JFrame {
         if(cours.equals(rd.get(i).getMatiere()) && classe.equals(rd.get(i).getSalle()) && date.equals(dateForm.format(rd.get(i).getDate_heure())) && heure.equals(timeForm.format(rd.get(i).getDate_heure()))){
             index = i;
             break;  
-        }else{
+        }else if(i==rd.size()){
             return 0;
         }
     }

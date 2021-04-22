@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import org.apache.commons.lang.time.DateUtils;
 import java.util.HashMap;
+import java.util.Set;
 
 import com.entities.All_Cours;
 import com.entities.Cours;
@@ -58,6 +59,8 @@ public class Credit_remover implements Runnable {
                     //Quand les crédits ont été retirés, on marque l'appel comme cloturé dans le cours pour éviter 
                     //la redondance de la supression des crédits d'absence
                     cours.setCall_clotured(true);
+                    this.checkOtherCours(list_eleve,i);
+
                     Json_doer doer = new Json_doer();
                     doer.make(this.all_cours); 
                 }
@@ -65,5 +68,40 @@ public class Credit_remover implements Runnable {
 
         }
 
+    }
+
+
+    private void checkOtherCours(HashMap<String,Eleve> myList,int numeroCours){
+
+        ArrayList<Cours> list_cours = this.all_cours.getListCours(); //Récupération de la liste des cours
+        for(int i =0; i<list_cours.size(); i++){
+            if(i != numeroCours){
+            for(String key : list_cours.get(i).getAbsent().keySet()){
+                if(myList.containsKey(key)){
+                    if (list_cours.get(i).getAbsent().get(key).getCreditAbsence() == 0) {
+                        System.out.println("L'eleve n'a déjà plus de crédit d'absence");
+                    } else {
+                    list_cours.get(i).getAbsent().get(key).setCreditAbsence(list_cours.get(i).getAbsent().get(key).getCreditAbsence()-1);
+
+                }
+
+            }
+
+            for(String keyy : list_cours.get(i).getPresent().keySet()){
+                if(myList.containsKey(keyy)){
+                    if (list_cours.get(i).getPresent().get(keyy).getCreditAbsence() == 0) {
+                        System.out.println("L'eleve n'a déjà plus de crédit d'absence");
+                    } else {
+                    list_cours.get(i).getPresent().get(keyy).setCreditAbsence(list_cours.get(i).getPresent().get(keyy).getCreditAbsence()-1);
+
+                }
+
+            }
+
+        }
+        }
+
+    }
+}
     }
 }
